@@ -1,0 +1,23 @@
+# 高可用的eureka服务注册中心（集群）
+spring:
+  application:
+    name: eureka-server
+  profiles: 
+    active: peer1  
+
+# 服务器配置
+server:
+  # 指定该Eureka实例的端口
+  port: 8761
+  
+# eureka服务配置
+eureka:
+  instance:
+    hostname: ${spring.profiles.active}
+  # client:
+    # serviceUrl:
+      # 注册到peer2上
+      # defaultZone: http://peer2:8762/eureka/
+
+
+

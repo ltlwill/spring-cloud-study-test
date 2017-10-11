@@ -1,0 +1,37 @@
+# 服务消费者（同时注册到服务中心）
+# 已配置到bootstrap.yml中
+# spring:
+  # application:
+    # name: eureka-consumer
+    
+# 关闭安全认证，springboot 1.5.X 以上默认开通了安全认证，使用CURL,POSTMAN等工具更新远程配置信息是会出现权限问题    
+management:
+  security:
+    enabled: false    
+
+# 服务器配置
+server:
+  # 指定该Eureka实例的端口
+  port: 8740
+  
+# turbine配置
+  aggregator: 
+    # 指定聚合哪些集群，多个使用","分割，默认为default。可使用http://.../turbine.stream?cluster={clusterConfig之一}访问
+    clusterConfig: default
+    # 配置Eureka中的serviceId列表，表明监控哪些服务
+    # appConfig: ms-web
+    # 1. clusterNameExpression指定集群名称，默认表达式appName；此时：turbine.aggregator.clusterConfig需要配置想要监控的应用名称
+    # 2. 当clusterNameExpression: default时，turbine.aggregator.clusterConfig可以不写，因为默认就是default
+    # 3. 当clusterNameExpression: metadata['cluster']时，假设想要监控的应用配置了eureka.instance.metadata-map.cluster: ABC，则需要配置，同时turbine.aggregator.clusterConfig: ABC
+    clusterNameExpression: new String("default")
+  
+# eureka服务配置
+eureka:
+  instance:
+    hostname:eureka-client1
+  serviceUrl:
+    # 注册到高可用的服务中心（集群）
+    defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/,http://peer3:8763/eureka/
+
+
+

@@ -1,0 +1,12 @@
+# eureka服务集群peer1
+# 服务器配置
+server:
+  # 指定该Eureka实例的端口
+  port: 8761
+  
+# eureka配置  
+eureka:
+  client:
+    serviceUrl:
+      # 注册到peer2,peer3上
+      defaultZone: http://peer2:8762/eureka/,http://peer3:8763/eureka/

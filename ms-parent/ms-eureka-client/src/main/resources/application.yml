@@ -1,0 +1,22 @@
+# eureka客户端（即服务提供者）,集群
+spring:
+  application:
+    name: eureka-client
+  profiles:
+    active: peer1  
+
+# 服务器配置
+server:
+  # 指定该Eureka实例的端口
+  port: 8760
+  
+# eureka服务配置
+eureka:
+  instance:
+    hostname:eureka-client1
+  serviceUrl:
+    # 注册到高可用的服务中心（集群）
+    defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/,http://peer3:8763/eureka/
+
+
+
